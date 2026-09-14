@@ -126,11 +126,45 @@ async function main() {
     return;
   }
 
-  const asignacion = generarAsignacion(gente);
-  const errores = verificar(asignacion, gente);
-  if (errores.length) {
-    console.error('El sorteo salio invalido:', errores.join(', '));
+  // --mujer-para="Nombre" / --hombre-para="Nombre" fuerzan el genero de quien
+  // recibe esa persona. Se reintenta el sorteo hasta que se cumplan todas.
+  const exigencias = process.argv
+    .filter((a) => a.startsWith('--mujer-para=') || a.startsWith('--hombre-para='))
+    .map((a) => {
+      const [clave, ...resto] = a.split('=');
+      return { nombre: resto.join('='), genero: clave === '--mujer-para' ? 'mujer' : 'hombre' };
+    });
+
+  const generoDe = Object.fromEntries(gente.map((p) => [p.nombre, p.genero]));
+  for (const e of exigencias) {
+    if (!generoDe[e.nombre]) {
+      console.error(`No existe el participante "${e.nombre}"`);
+      process.exit(1);
+    }
+  }
+
+  const cumple = (a) =>
+    exigencias.every((e) => {
+      const fila = a.find((x) => x.nombre === e.nombre);
+      return fila && generoDe[fila.daA] === e.genero;
+    });
+
+  let asignacion = null;
+  for (let intento = 0; intento < 3000; intento++) {
+    const candidata = generarAsignacion(gente);
+    if (verificar(candidata, gente).length === 0 && cumple(candidata)) {
+      asignacion = candidata;
+      break;
+    }
+  }
+
+  if (!asignacion) {
+    console.error('No se encontro un sorteo que cumpla las condiciones pedidas.');
     process.exit(1);
+  }
+
+  for (const e of exigencias) {
+    console.log(`Condicion cumplida: a ${e.nombre} le toca una ${e.genero}`);
   }
 
   // Alfabetico para que cada quien encuentre su nombre rapido en la pantalla.

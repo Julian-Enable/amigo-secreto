@@ -1,0 +1,8 @@
+[
+  { "nombre": "Ana Gómez", "genero": "mujer" },
+  { "nombre": "Luis Martínez", "genero": "hombre" },
+  { "nombre": "Sofía Restrepo", "genero": "mujer" },
+  { "nombre": "Pedro Álvarez", "genero": "hombre" },
+  { "nombre": "Juan Carrillo", "genero": "hombre" },
+  { "nombre": "Camila Ortiz", "genero": "mujer" }
+]

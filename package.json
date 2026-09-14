@@ -1,10 +1,15 @@
 {
   "name": "amigo-secreto",
-  "version": "2.0.0",
-  "description": "Sorteo de amigo secreto 100% en el navegador: genera un link privado por participante",
+  "version": "3.0.0",
+  "description": "Sorteo de amigo secreto: cada quien elige su nombre y queda marcado al abrirlo",
   "private": true,
+  "type": "module",
   "license": "ISC",
   "scripts": {
-    "dev": "npx --yes serve ."
+    "seed": "node scripts/seed.js",
+    "reseed": "node scripts/seed.js --force"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2"
   }
 }

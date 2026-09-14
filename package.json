@@ -1,17 +1,10 @@
 {
   "name": "amigo-secreto",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
+  "version": "2.0.0",
+  "description": "Sorteo de amigo secreto 100% en el navegador: genera un link privado por participante",
+  "private": true,
   "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "express": "^4.22.3"
+  "scripts": {
+    "dev": "npx --yes serve ."
   }
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amigo Secreto</title>
+<title>🎁 Amigo Secreto</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -20,419 +20,472 @@
     backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 40px;
-    max-width: 600px;
+    max-width: 650px;
     width: 95%;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
-  h1 {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 8px;
-    background: linear-gradient(90deg, #e94560, #f5a623);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  h1 { text-align: center; font-size: 2em; margin-bottom: 8px; background: linear-gradient(90deg, #e94560, #f5a623); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .subtitle { text-align: center; color: #aaa; margin-bottom: 24px; font-size: 0.9em; }
   .section { margin-bottom: 20px; }
-  .section-title {
-    font-size: 1.1em;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #f5a623;
-    border-bottom: 1px solid rgba(245,166,35,0.3);
-    padding-bottom: 6px;
+  .section-title { font-size: 1.1em; font-weight: 600; margin-bottom: 10px; color: #f5a623; border-bottom: 1px solid rgba(245,166,35,0.3); padding-bottom: 6px; }
+  .add-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .add-row input, .add-row select { flex: 1; min-width: 120px; }
+  input[type="text"], textarea {
+    width: 100%; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px; background: rgba(255,255,255,0.07); color: #fff;
+    font-size: 1em; outline: none; transition: border 0.3s; font-family: inherit;
   }
-  .add-row { display: flex; gap: 8px; margin-top: 8px; }
-  .add-row input { flex: 1; }
-  input[type="text"] {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.07);
-    color: #fff;
-    font-size: 1em;
-    outline: none;
-    transition: border 0.3s;
-  }
-  input[type="text"]:focus { border-color: #e94560; }
-  select {
-    padding: 8px 12px;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px;
-    background: rgba(255,255,255,0.07);
-    color: #fff;
-    font-size: 0.9em;
-    outline: none;
-    margin-left: 8px;
-  }
+  input[type="text"]:focus, textarea:focus { border-color: #e94560; }
+  select { padding: 10px 12px; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; background: rgba(255,255,255,0.07); color: #fff; font-size: 0.9em; outline: none; }
   select option { background: #1a1a2e; color: #fff; }
-  .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 600;
-    transition: all 0.3s;
-  }
+  .btn { padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; font-size: 0.9em; font-weight: 600; transition: all 0.3s; }
   .btn-primary { background: #e94560; color: #fff; }
   .btn-primary:hover { background: #c73850; }
-  .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
-  .btn-secondary:hover { background: rgba(255,255,255,0.2); }
   .btn-success { background: #2ecc71; color: #fff; }
   .btn-success:hover { background: #27ae60; }
+  .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
+  .btn-secondary:hover { background: rgba(255,255,255,0.2); }
   .actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
   .person-list { list-style: none; margin-top: 8px; }
-  .person-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
-    margin-bottom: 4px;
-    font-size: 0.9em;
-  }
-  .person-list li .remove {
-    background: #e94560;
-    border: none;
-    color: #fff;
-    border-radius: 6px;
-    padding: 2px 8px;
-    cursor: pointer;
-    font-size: 0.8em;
-  }
+  .person-list li { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 4px; font-size: 0.9em; }
+  .person-list li .remove { background: #e94560; border: none; color: #fff; border-radius: 6px; padding: 2px 8px; cursor: pointer; font-size: 0.8em; }
   .badge-mujer { background: #e91e63; padding: 2px 8px; border-radius: 10px; font-size: 0.75em; }
   .badge-hombre { background: #2196f3; padding: 2px 8px; border-radius: 10px; font-size: 0.75em; }
   .badge-exception { background: #f5a623; padding: 2px 8px; border-radius: 10px; font-size: 0.75em; color: #000; }
-  .result-box {
-    margin-top: 20px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 16px;
-    padding: 24px;
-    display: none;
-  }
+  .result-box { margin-top: 20px; background: rgba(255,255,255,0.06); border-radius: 16px; padding: 24px; display: none; }
   .result-box.active { display: block; }
-  .result-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
-    margin-bottom: 6px;
-    transition: background 0.3s;
-  }
-  .result-item:hover { background: rgba(255,255,255,0.1); }
+  .result-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 6px; }
   .exception { color: #f5a623; font-size: 0.8em; font-weight: 600; }
-  .stats {
-    display: flex;
-    gap: 16px;
-    margin-top: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .stat {
-    text-align: center;
-    padding: 12px 20px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 12px;
-  }
+  .stats { display: flex; gap: 16px; margin-top: 16px; justify-content: center; flex-wrap: wrap; }
+  .stat { text-align: center; padding: 12px 20px; background: rgba(255,255,255,0.06); border-radius: 12px; }
   .stat .num { font-size: 1.8em; font-weight: 700; color: #f5a623; }
   .stat .label { font-size: 0.75em; color: #aaa; }
-  .warning {
-    background: rgba(245,166,35,0.15);
-    border: 1px solid rgba(245,166,35,0.3);
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 16px;
-    font-size: 0.85em;
-    color: #f5a623;
-    display: none;
-  }
+  .warning { background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.3); border-radius: 10px; padding: 12px; margin-bottom: 16px; font-size: 0.85em; color: #f5a623; display: none; }
   .warning.active { display: block; }
-  .reveal-btn {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    margin-top: 16px;
-    font-size: 1.1em;
-    background: linear-gradient(135deg, #e94560, #f5a623);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: transform 0.2s;
-  }
+  .reveal-btn { display: block; width: 100%; padding: 14px; margin-top: 16px; font-size: 1.1em; background: linear-gradient(135deg, #e94560, #f5a623); color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; transition: transform 0.2s; }
   .reveal-btn:hover { transform: scale(1.02); }
   .hidden-names { filter: blur(8px); user-select: none; transition: all 0.5s; }
   .hidden-names.revealed { filter: none; user-select: auto; }
-  @media (max-width: 480px) {
-    .container { padding: 24px; }
-    h1 { font-size: 1.5em; }
-    .add-row { flex-direction: column; }
-  }
+  .link-box { background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.3); border-radius: 10px; padding: 16px; margin-top: 16px; text-align: center; }
+  .link-box a { color: #2ecc71; font-size: 1.1em; font-weight: 700; word-break: break-all; }
+  .secret-box { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 30px; text-align: center; margin-top: 20px; }
+  .secret-box .gift-icon { font-size: 4em; }
+  .secret-box .receiver-name { font-size: 1.5em; font-weight: 700; color: #f5a623; margin-top: 10px; }
+  .admin-toggle { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aaa; padding: 4px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8em; margin-left: 10px; }
+  .admin-toggle.active { background: #f5a623; color: #000; }
+  .tab-view { display: none; }
+  .tab-view.active { display: block; }
+  .step { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .step .step-num { display: inline-block; background: #f5a623; color: #000; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; font-weight: 700; margin-right: 10px; font-size: 0.9em; }
+  @media (max-width: 480px) { .container { padding: 24px; } h1 { font-size: 1.5em; } .add-row { flex-direction: column; } }
+  .link-row { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 8px; }
+  .link-row .who { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+  .link-row .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .link-row .btns .btn { flex: 1; min-width: 110px; font-size: 0.8em; padding: 8px 10px; }
+  .link-row.copiado { border: 1px solid rgba(46,204,113,0.5); }
+  .nota { font-size: 0.82em; color: #aaa; line-height: 1.5; margin-top: 8px; }
+  .aviso { background: rgba(233,69,96,0.15); border: 1px solid rgba(233,69,96,0.35); border-radius: 10px; padding: 12px; font-size: 0.85em; margin-bottom: 16px; }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>🎁 Amigo Secreto</h1>
-  <p class="subtitle">Sin emparejar mismo género (mínimo excepciones)</p>
+  <h1>&#127873; Amigo Secreto</h1>
+  <p class="subtitle">Cada persona recibe su propio link y solo ve a quién le toca dar</p>
 
-  <div class="warning" id="warning"></div>
-
-  <div class="section">
-    <div class="section-title">Agregar Participantes</div>
-    <div class="add-row">
-      <input type="text" id="nombreInput" placeholder="Nombre del participante">
-      <select id="generoSelect">
-        <option value="hombre">👨 Hombre</option>
-        <option value="mujer">👩 Mujer</option>
-      </select>
-      <button class="btn btn-primary" onclick="agregarPersona()">Agregar</button>
+  <!-- ============ VISTA 1: armar el sorteo ============ -->
+  <div id="setupMode">
+    <div class="step">
+      <span class="step-num">1</span> Ingresa todos los participantes
     </div>
-    <div style="margin-top:12px; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
-      <div class="section-title" style="border:none; padding:0; margin-bottom:6px">O pegar lista completa</div>
-      <textarea id="listaInput" placeholder="Ej: Juan (h), María (m), Pedro (h), Ana (m)&#10;Formato: Nombre (h o m)" style="width:100%; padding:10px 14px; border:1px solid rgba(255,255,255,0.15); border-radius:10px; background:rgba(255,255,255,0.07); color:#fff; font-size:0.9em; outline:none; resize:vertical; min-height:60px; font-family:inherit;"></textarea>
-      <button class="btn btn-primary" onclick="importarLista()" style="margin-top:8px">📋 Importar Lista</button>
+    <div class="section">
+      <div class="add-row">
+        <input type="text" id="nombreInput" placeholder="Nombre completo">
+        <select id="generoSelect">
+          <option value="hombre">&#128104; Hombre</option>
+          <option value="mujer">&#128105; Mujer</option>
+        </select>
+        <button class="btn btn-primary" id="btnAgregar">Agregar</button>
+      </div>
+      <div style="margin-top:8px;">
+        <textarea id="listaInput" placeholder="O pegar lista: Juan (h), María (m)..." style="min-height:60px;"></textarea>
+        <button class="btn btn-primary" id="btnImportar" style="margin-top:8px;">&#128203; Importar Lista</button>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Participantes (<span id="totalCount">0</span>)</div>
+      <ul class="person-list" id="personList"></ul>
+      <div class="warning" id="warning"></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-success" id="btnGenerar" style="flex:1">&#127922; Generar Sorteo</button>
+      <button class="btn btn-secondary" id="btnLimpiar" style="flex:1">&#128465;&#65039; Limpiar</button>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Participantes (<span id="totalCount">0</span>)</div>
-    <ul class="person-list" id="personList"></ul>
-  </div>
-
-  <div class="actions">
-    <button class="btn btn-success" onclick="generarSorteo()" id="btnGenerar" style="flex:1">🎲 Generar Sorteo</button>
-    <button class="btn btn-secondary" onclick="limpiarTodo()" style="flex:1">🗑️ Limpiar Todo</button>
-  </div>
-
-  <div class="result-box" id="resultBox">
-    <div class="section-title">📋 Resultado del Sorteo</div>
-    <div id="resultList"></div>
+  <!-- ============ VISTA 2: repartir los links ============ -->
+  <div id="shareMode" class="tab-view">
+    <div class="step">
+      <span class="step-num">2</span> Envía a cada persona SU link (y solo el suyo)
+    </div>
+    <div class="aviso">
+      &#128274; Ni siquiera tú sabes qué dice cada link. No abras uno que no sea el tuyo o arruinas la sorpresa.
+    </div>
+    <div class="section">
+      <div id="linkList"></div>
+      <p class="nota">
+        Los links no se guardan en ningún servidor: la asignación viaja dentro del propio enlace.
+        Repártelos ahora; si cierras la pestaña puedes recuperarlos al volver, mientras no empieces un sorteo nuevo.
+      </p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" id="btnCopiarTodos" style="flex:1">&#128203; Copiar todos los links</button>
+      <button class="btn btn-secondary" id="btnNuevo" style="flex:1">&#128260; Nuevo sorteo</button>
+    </div>
     <div class="stats" id="stats"></div>
-    <button class="reveal-btn" onclick="revelarNombres()" id="revealBtn">🔍 Revelar Nombres</button>
+  </div>
+
+  <!-- ============ VISTA 3: la persona abre su link ============ -->
+  <div id="revealMode" class="tab-view">
+    <div class="secret-box">
+      <div class="gift-icon">&#127873;</div>
+      <p style="margin-top:12px;">Hola <strong id="revealNombre"></strong>, tu amigo secreto es:</p>
+      <div id="revealOculto" class="hidden-names">
+        <div class="receiver-name" id="revealReceptor"></div>
+        <div id="revealExcepcion"></div>
+      </div>
+      <button class="reveal-btn" id="btnRevelar">&#128064; Revelar</button>
+    </div>
+    <p class="nota" style="text-align:center;">Guarda una captura: este link siempre muestra lo mismo.</p>
+  </div>
+
+  <div id="errorMode" class="tab-view">
+    <div class="aviso">El link no es válido o está incompleto. Pídele al organizador que te lo reenvíe.</div>
+    <button class="btn btn-secondary" id="btnInicio" style="width:100%;">Ir al inicio</button>
   </div>
 </div>
 
 <script>
-let personas = [];
-let sorteoAsignacion = [];
-let nombresRevelados = false;
+'use strict';
 
-function agregarPersona() {
-  const nombre = document.getElementById('nombreInput').value.trim();
-  const genero = document.getElementById('generoSelect').value;
-  if (!nombre) { alert('Ingresa un nombre'); return; }
-  if (personas.find(p => p.nombre.toLowerCase() === nombre.toLowerCase())) {
-    alert('Este nombre ya existe'); return;
+var personas = [];
+var sorteo = [];
+var CLAVE = 'amigo-secreto-2025';
+var STORE = 'amigoSecreto.sorteo';
+
+/* ---------- codificación del link ---------- */
+// XOR con clave fija + base64url. No es criptografía seria: solo evita que el
+// contenido del link se lea de un vistazo, incluso por el organizador.
+function ofuscar(bytes) {
+  var out = new Uint8Array(bytes.length);
+  for (var i = 0; i < bytes.length; i++) {
+    out[i] = bytes[i] ^ CLAVE.charCodeAt(i % CLAVE.length);
   }
-  personas.push({ nombre, genero });
-  document.getElementById('nombreInput').value = '';
-  document.getElementById('nombreInput').focus();
+  return out;
+}
+
+function codificar(obj) {
+  var bytes = ofuscar(new TextEncoder().encode(JSON.stringify(obj)));
+  var bin = '';
+  for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function decodificar(token) {
+  var b64 = token.replace(/-/g, '+').replace(/_/g, '/');
+  while (b64.length % 4) b64 += '=';
+  var bin = atob(b64);
+  var bytes = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return JSON.parse(new TextDecoder().decode(ofuscar(bytes)));
+}
+
+/* ---------- alta de participantes ---------- */
+function agregarPersona() {
+  var input = document.getElementById('nombreInput');
+  var nombre = input.value.trim();
+  var genero = document.getElementById('generoSelect').value;
+  if (!nombre) { alert('Ingresa un nombre'); return; }
+  if (personas.some(function (p) { return p.nombre.toLowerCase() === nombre.toLowerCase(); })) {
+    alert('Ese nombre ya está en la lista'); return;
+  }
+  personas.push({ nombre: nombre, genero: genero });
+  input.value = '';
+  input.focus();
   renderPersonas();
 }
 
 function removerPersona(i) {
   personas.splice(i, 1);
   renderPersonas();
-  document.getElementById('resultBox').classList.remove('active');
 }
 
 function renderPersonas() {
-  const list = document.getElementById('personList');
+  var list = document.getElementById('personList');
   document.getElementById('totalCount').textContent = personas.length;
-  const H = personas.filter(p => p.genero === 'hombre').length;
-  const M = personas.filter(p => p.genero === 'mujer').length;
-  const diff = Math.abs(H - M);
-  const warn = document.getElementById('warning');
-  if (diff > 4 && H > 0 && M > 0) {
-    warn.textContent = `⚠️ Hay ${diff} persona(s) de diferencia. Se generarán ${diff} excepciones mínimas de mismo género.`;
+  var H = personas.filter(function (p) { return p.genero === 'hombre'; }).length;
+  var M = personas.length - H;
+  var diff = Math.abs(H - M);
+  var warn = document.getElementById('warning');
+  if (diff > 0 && H > 0 && M > 0) {
+    warn.textContent = '⚠️ Hay ' + diff + ' persona(s) de diferencia entre hombres y mujeres: habrá ' + diff + ' excepción(es) del mismo género.';
     warn.classList.add('active');
   } else {
     warn.classList.remove('active');
   }
-  list.innerHTML = personas.map((p, i) => `
-    <li>
-      <span>${p.nombre} <span class="badge-${p.genero}">${p.genero}</span></span>
-      <button class="remove" onclick="removerPersona(${i})">✕</button>
-    </li>
-  `).join('');
-  nombresRevelados = false;
-  document.getElementById('resultBox').classList.remove('active');
+  list.innerHTML = '';
+  personas.forEach(function (p, i) {
+    var li = document.createElement('li');
+    var span = document.createElement('span');
+    span.textContent = p.nombre + ' ';
+    var badge = document.createElement('span');
+    badge.className = 'badge-' + p.genero;
+    badge.textContent = p.genero;
+    span.appendChild(badge);
+    var btn = document.createElement('button');
+    btn.className = 'remove';
+    btn.textContent = '✕';
+    btn.addEventListener('click', function () { removerPersona(i); });
+    li.appendChild(span);
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
 }
 
-function generateDerangement(n) {
-  for (let attempt = 0; attempt < 1000; attempt++) {
-    const perm = Array.from({length: n}, (_, i) => i);
-    for (let i = n - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [perm[i], perm[j]] = [perm[j], perm[i]];
+function importarLista() {
+  var campo = document.getElementById('listaInput');
+  var texto = campo.value.trim();
+  if (!texto) { alert('Pega la lista primero'); return; }
+  var agregados = 0;
+  texto.split(/[,\n]/).forEach(function (item) {
+    var t = item.trim();
+    if (!t) return;
+    var match = t.match(/^(.+?)\s*\(\s*(h|m|hombre|mujer)\s*\)$/i);
+    var nombre, genero;
+    if (match) {
+      nombre = match[1].trim();
+      var g = match[2].toLowerCase();
+      genero = (g === 'm' || g === 'mujer') ? 'mujer' : 'hombre';
+    } else {
+      nombre = t.replace(/[()]/g, '').trim();
+      genero = 'hombre';
     }
-    let ok = true;
-    for (let i = 0; i < n; i++) {
-      if (perm[i] === i) { ok = false; break; }
-    }
-    if (ok) return perm;
+    if (!nombre) return;
+    if (personas.some(function (p) { return p.nombre.toLowerCase() === nombre.toLowerCase(); })) return;
+    personas.push({ nombre: nombre, genero: genero });
+    agregados++;
+  });
+  if (agregados) {
+    renderPersonas();
+    campo.value = '';
+    alert('Se agregaron ' + agregados + ' persona(s)');
+  } else {
+    alert('No se encontraron nombres nuevos. Usa el formato: Nombre (h) o Nombre (m)');
   }
-  return null;
 }
 
-function generateAssignment(personas) {
-  const n = personas.length;
-  const hombres = personas.filter(p => p.genero === 'hombre');
-  const mujeres = personas.filter(p => p.genero === 'mujer');
-  const H = hombres.length, M = mujeres.length;
-  const minExcep = Math.abs(H - M);
+/* ---------- sorteo ---------- */
+function barajar(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
 
-  let bestPerm = null;
-  let bestExc = Infinity;
+// Arma un único ciclo alternando géneros: cada persona regala al siguiente de la
+// secuencia y el último al primero. Al ser un ciclo de largo n nadie se regala a
+// sí mismo, todos reciben exactamente un regalo, y las repeticiones de género
+// quedan en el mínimo posible: |hombres - mujeres|.
+function generarAsignacion(gente) {
+  var hombres = barajar(gente.filter(function (p) { return p.genero === 'hombre'; }));
+  var mujeres = barajar(gente.filter(function (p) { return p.genero === 'mujer'; }));
+  var mayoria = hombres.length >= mujeres.length ? hombres : mujeres;
+  var minoria = hombres.length >= mujeres.length ? mujeres : hombres;
 
-  for (let attempt = 0; attempt < 30000; attempt++) {
-    const perm = generateDerangement(n);
-    if (!perm) continue;
-    let exc = 0;
-    for (let i = 0; i < n; i++) {
-      if (personas[i].genero === personas[perm[i]].genero) exc++;
-    }
-    if (exc < bestExc) {
-      bestExc = exc;
-      bestPerm = perm;
-    }
-    if (exc === minExcep) break;
+  var secuencia = [];
+  for (var i = 0; i < mayoria.length; i++) {
+    secuencia.push(mayoria[i]);
+    if (i < minoria.length) secuencia.push(minoria[i]);
   }
 
-  return bestPerm.map((target, i) => ({
-    giver: personas[i],
-    receiver: personas[target]
-  }));
+  var n = secuencia.length;
+  var offset = Math.floor(Math.random() * n);
+  var orden = secuencia.map(function (_, i) { return secuencia[(i + offset) % n]; });
+
+  return orden.map(function (p, i) {
+    var receptor = orden[(i + 1) % n];
+    return {
+      nombre: p.nombre,
+      genero: p.genero,
+      daA: receptor.nombre,
+      excepcion: p.genero === receptor.genero
+    };
+  });
 }
 
 function generarSorteo() {
   if (personas.length < 3) { alert('Se necesitan al menos 3 personas'); return; }
-  if (personas.length < 2) return;
-
-  const H = personas.filter(p => p.genero === 'hombre').length;
-  const M = personas.filter(p => p.genero === 'mujer').length;
-
-  if (H === 0 || M === 0) {
-    alert('Se necesitan al menos 1 hombre y 1 mujer para el sorteo.');
-    return;
-  }
-
-  const minExcep = Math.abs(H - M);
-  if (minExcep > 4) {
-    if (!confirm(`Hay ${minExcep} persona(s) de diferencia entre géneros. Se permitirán ${minExcep} excepciones mínimas de mismo género. ¿Continuar?`)) return;
-  }
-
-  sorteoAsignacion = generateAssignment(personas);
-  const exceptions = sorteoAsignacion.filter(a => a.giver.genero === a.receiver.genero).length;
-  nombresRevelados = false;
-  renderResultado(exceptions, minExcep);
+  sorteo = barajar(generarAsignacion(personas));
+  guardar();
+  mostrarLinks();
 }
 
-function renderResultado(exceptions, minExcep) {
-  const box = document.getElementById('resultBox');
-  const list = document.getElementById('resultList');
-  const stats = document.getElementById('stats');
-
-  list.innerHTML = sorteoAsignacion.map((a, i) => {
-    const isException = a.giver.genero === a.receiver.genero;
-    return `
-      <div class="result-item">
-        <span>
-          ${a.giver.nombre} <span class="badge-${a.giver.genero}">${a.giver.genero}</span>
-          ${isException ? '<span class="badge-exception">⚠️ Excepción</span>' : ''}
-        </span>
-        <span class="hidden-names" id="receiver-${i}">
-          → <strong>${a.receiver.nombre}</strong> <span class="badge-${a.receiver.genero}">${a.receiver.genero}</span>
-        </span>
-      </div>
-    `;
-  }).join('');
-
-  const crossGender = sorteoAsignacion.length - exceptions;
-  stats.innerHTML = `
-    <div class="stat">
-      <div class="num">${crossGender}</div>
-      <div class="label">Cross-gender ✅</div>
-    </div>
-    <div class="stat">
-      <div class="num">${exceptions}</div>
-      <div class="label">Excepciones ⚠️</div>
-    </div>
-    <div class="stat">
-      <div class="num">${personas.length}</div>
-      <div class="label">Participantes</div>
-    </div>
-  `;
-
-  box.classList.add('active');
-  nombresRevelados = false;
-  document.getElementById('revealBtn').textContent = '🔍 Revelar Nombres';
+function baseUrl() {
+  return location.origin + location.pathname;
 }
 
-function revelarNombres() {
-  nombresRevelados = !nombresRevelados;
-  const btn = document.getElementById('revealBtn');
-  document.querySelectorAll('.hidden-names').forEach(el => {
-    if (nombresRevelados) el.classList.add('revealed');
-    else el.classList.remove('revealed');
+function linkDe(a) {
+  return baseUrl() + '#r=' + codificar({ n: a.nombre, a: a.daA, e: a.excepcion ? 1 : 0 });
+}
+
+function mostrarLinks() {
+  var cont = document.getElementById('linkList');
+  cont.innerHTML = '';
+  sorteo.forEach(function (a) {
+    var url = linkDe(a);
+    var row = document.createElement('div');
+    row.className = 'link-row';
+
+    var who = document.createElement('div');
+    who.className = 'who';
+    var nom = document.createElement('span');
+    nom.textContent = a.nombre;
+    var badge = document.createElement('span');
+    badge.className = 'badge-' + a.genero;
+    badge.textContent = a.genero;
+    who.appendChild(nom);
+    who.appendChild(badge);
+
+    var btns = document.createElement('div');
+    btns.className = 'btns';
+
+    var copiar = document.createElement('button');
+    copiar.className = 'btn btn-success';
+    copiar.textContent = '📋 Copiar link';
+    copiar.addEventListener('click', function () {
+      copiarTexto(url, function () {
+        copiar.textContent = '✅ Copiado';
+        row.classList.add('copiado');
+      });
+    });
+
+    var wa = document.createElement('a');
+    wa.className = 'btn btn-secondary';
+    wa.style.textAlign = 'center';
+    wa.style.textDecoration = 'none';
+    wa.target = '_blank';
+    wa.rel = 'noopener';
+    wa.textContent = '💬 WhatsApp';
+    wa.href = 'https://wa.me/?text=' + encodeURIComponent(
+      'Hola ' + a.nombre + ', este es tu link del amigo secreto (no lo compartas): ' + url
+    );
+
+    btns.appendChild(copiar);
+    btns.appendChild(wa);
+    row.appendChild(who);
+    row.appendChild(btns);
+    cont.appendChild(row);
   });
-  btn.textContent = nombresRevelados ? '🙈 Ocultar Nombres' : '🔍 Revelar Nombres';
+
+  var excepciones = sorteo.filter(function (a) { return a.excepcion; }).length;
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><div class="num">' + sorteo.length + '</div><div class="label">participantes</div></div>' +
+    '<div class="stat"><div class="num">' + excepciones + '</div><div class="label">excepciones</div></div>';
+
+  document.getElementById('setupMode').style.display = 'none';
+  document.getElementById('shareMode').classList.add('active');
+}
+
+function copiarTexto(texto, ok) {
+  if (navigator.clipboard && location.protocol !== 'file:') {
+    navigator.clipboard.writeText(texto).then(ok, function () { prompt('Copia este texto:', texto); });
+  } else {
+    prompt('Copia este texto:', texto);
+  }
+}
+
+function copiarTodos() {
+  var texto = sorteo.map(function (a) { return a.nombre + ': ' + linkDe(a); }).join('\n');
+  copiarTexto(texto, function () { alert('Links copiados 📋'); });
+}
+
+/* ---------- persistencia local del organizador ---------- */
+function guardar() {
+  try { localStorage.setItem(STORE, JSON.stringify({ personas: personas, sorteo: sorteo })); } catch (e) {}
+}
+
+function restaurar() {
+  try {
+    var raw = localStorage.getItem(STORE);
+    if (!raw) return false;
+    var data = JSON.parse(raw);
+    if (!data.sorteo || !data.sorteo.length) return false;
+    personas = data.personas || [];
+    sorteo = data.sorteo;
+    mostrarLinks();
+    return true;
+  } catch (e) { return false; }
+}
+
+function nuevoSorteo() {
+  if (!confirm('¿Borrar este sorteo y empezar de nuevo? Los links ya repartidos seguirán funcionando.')) return;
+  personas = [];
+  sorteo = [];
+  try { localStorage.removeItem(STORE); } catch (e) {}
+  document.getElementById('shareMode').classList.remove('active');
+  document.getElementById('setupMode').style.display = 'block';
+  renderPersonas();
 }
 
 function limpiarTodo() {
   personas = [];
-  sorteoAsignacion = [];
-  nombresRevelados = false;
-  document.getElementById('personList').innerHTML = '';
-  document.getElementById('totalCount').textContent = '0';
-  document.getElementById('resultBox').classList.remove('active');
-  document.getElementById('warning').classList.remove('active');
-  document.getElementById('nombreInput').focus();
-}
-
-function importarLista() {
-  const texto = document.getElementById('listaInput').value.trim();
-  if (!texto) { alert('Pega la lista primero'); return; }
-  const lines = texto.split(/[,\n]/);
-  let added = 0;
-  lines.forEach(item => {
-    const trimmed = item.trim();
-    if (!trimmed) return;
-    const match = trimmed.match(/^(.+?)\s*\(\s*(h|m|hombre|mujer)\s*\)$/i);
-    if (match) {
-      const nombre = match[1].trim();
-      const gen = match[2].toLowerCase();
-      const g = gen === 'm' || gen === 'mujer' ? 'mujer' : 'hombre';
-      if (nombre && !personas.find(p => p.nombre.toLowerCase() === nombre.toLowerCase())) {
-        personas.push({ nombre, genero: g });
-        added++;
-      }
-    } else {
-      const nombre = trimmed.replace(/[()]/g, '').trim();
-      if (nombre && !personas.find(p => p.nombre.toLowerCase() === nombre.toLowerCase())) {
-        personas.push({ nombre, genero: 'hombre' });
-        added++;
-      }
-    }
-  });
-  if (added > 0) {
-    renderPersonas();
-    alert(`Se agregaron ${added} persona(s)`);
-  } else {
-    alert('No se encontraron nombres válidos. Usa formato: Nombre (h) o Nombre (m)');
-  }
+  renderPersonas();
   document.getElementById('listaInput').value = '';
 }
 
-document.getElementById('nombreInput').addEventListener('keypress', e => {
+/* ---------- vista de la persona ---------- */
+function mostrarRevelacion(token) {
+  var datos;
+  try { datos = decodificar(token); } catch (e) { datos = null; }
+  if (!datos || !datos.n || !datos.a) {
+    document.getElementById('setupMode').style.display = 'none';
+    document.getElementById('errorMode').classList.add('active');
+    return;
+  }
+  document.getElementById('revealNombre').textContent = datos.n;
+  document.getElementById('revealReceptor').textContent = datos.a;
+  if (datos.e) {
+    document.getElementById('revealExcepcion').innerHTML =
+      '<p style="margin-top:8px;"><span class="badge-exception">⚠️ Excepción: mismo género</span></p>';
+  }
+  document.getElementById('setupMode').style.display = 'none';
+  document.getElementById('revealMode').classList.add('active');
+}
+
+/* ---------- arranque ---------- */
+document.getElementById('btnAgregar').addEventListener('click', agregarPersona);
+document.getElementById('btnImportar').addEventListener('click', importarLista);
+document.getElementById('btnGenerar').addEventListener('click', generarSorteo);
+document.getElementById('btnLimpiar').addEventListener('click', limpiarTodo);
+document.getElementById('btnCopiarTodos').addEventListener('click', copiarTodos);
+document.getElementById('btnNuevo').addEventListener('click', nuevoSorteo);
+document.getElementById('btnInicio').addEventListener('click', function () { location.href = baseUrl(); });
+document.getElementById('nombreInput').addEventListener('keypress', function (e) {
   if (e.key === 'Enter') agregarPersona();
 });
+document.getElementById('btnRevelar').addEventListener('click', function () {
+  document.getElementById('revealOculto').classList.add('revealed');
+  this.style.display = 'none';
+});
+
+var hash = location.hash.match(/^#r=(.+)$/);
+if (hash) {
+  mostrarRevelacion(hash[1]);
+} else {
+  restaurar();
+  renderPersonas();
+}
 </script>
 </body>
 </html>

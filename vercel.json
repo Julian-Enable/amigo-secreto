@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npm install",
+  "devCommand": "node server.js",
+  "installCommand": "npm install",
+  "framework": "node",
+  "regions": ["iad1"]
+}

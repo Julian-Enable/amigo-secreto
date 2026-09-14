@@ -9,3 +9,4 @@ test-api*
 .agents/
 .claude/
 skills-lock.json
+.privado/

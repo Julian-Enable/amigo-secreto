@@ -1,0 +1,8 @@
+node_modules/
+*.bat
+*.js
+!.server.js
+!.public/
+package-lock.json
+.env
+test-api*

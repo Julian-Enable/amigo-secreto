@@ -2,3 +2,7 @@ node_modules/
 *.bat
 .env
 test-api*
+.vercel
+
+.vercel
+.env*

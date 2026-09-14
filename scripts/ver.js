@@ -49,10 +49,27 @@ function fecha(valor) {
   });
 }
 
+// Lo que esa persona pidio para si misma (dulces y opciones de regalo).
+function listaDeseos(f) {
+  const dulces = Array.isArray(f.dulces) ? f.dulces : [];
+  const regalos = Array.isArray(f.regalos) ? f.regalos : [];
+  if (!dulces.length && !regalos.length) {
+    return '<span class="sin">sin escribir</span>';
+  }
+  const bloque = (etiqueta, items) =>
+    items.length
+      ? `<div class="deseo"><span class="et">${etiqueta}</span> ${items.map(escapar).join(' · ')}</div>`
+      : '';
+  return bloque('Dulce', dulces) + bloque('Regalo', regalos);
+}
+
 function construirHtml(filas, generoDe) {
   const abiertos = filas.filter((f) => f.revelado).length;
   const total = filas.length;
   const excepciones = filas.filter((f) => f.genero === generoDe[f.da_a]).length;
+  const conDeseos = filas.filter(
+    (f) => (f.dulces && f.dulces.length) || (f.regalos && f.regalos.length)
+  ).length;
   const generado = new Date().toLocaleString('es-CO', {
     timeZone: 'America/Bogota',
     dateStyle: 'long',
@@ -74,6 +91,7 @@ function construirHtml(filas, generoDe) {
             ? `<span class="pill pill-si">Abierto</span><span class="cuando">${escapar(fecha(f.revelado_en))}</span>`
             : '<span class="pill pill-no">Pendiente</span>'
         }</td>
+        <td class="pidio">${listaDeseos(f)}</td>
       </tr>`;
     })
     .join('\n');
@@ -166,6 +184,14 @@ function construirHtml(filas, generoDe) {
   .pill-si { background: var(--done); color: #fff; }
   .pill-no { background: var(--ground); color: var(--ink-faint); border: 1px solid var(--line); }
   .cuando { display: block; font-size: 0.72rem; color: var(--ink-faint); margin-top: 3px; }
+  .pidio { font-size: 0.82rem; max-width: 300px; }
+  .pidio .deseo { margin-bottom: 3px; }
+  .pidio .et {
+    display: inline-block; font-size: 0.66rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint);
+    margin-right: 3px;
+  }
+  .pidio .sin { color: var(--ink-faint); font-style: italic; }
   footer { margin-top: 28px; font-size: 0.8rem; color: var(--ink-faint); }
   @media print { .warn { border: 1px solid #ccc; } body { padding: 0; } }
 </style>
@@ -185,12 +211,13 @@ function construirHtml(filas, generoDe) {
     <div class="stat"><div class="n">${abiertos}</div><div class="l">Ya abrieron</div></div>
     <div class="stat"><div class="n">${total - abiertos}</div><div class="l">Pendientes</div></div>
     <div class="stat"><div class="n">${excepciones}</div><div class="l">Mismo género</div></div>
+    <div class="stat"><div class="n">${conDeseos}</div><div class="l">Ya pidieron</div></div>
   </div>
 
   <div class="tabla-wrap">
     <table>
       <thead>
-        <tr><th>#</th><th>Persona</th><th></th><th>Le da a</th><th>Estado</th></tr>
+        <tr><th>#</th><th>Persona</th><th></th><th>Le da a</th><th>Estado</th><th>Lo que pidió</th></tr>
       </thead>
       <tbody>
 ${cuerpo}
@@ -214,9 +241,11 @@ async function main() {
 
   const sql = neon(process.env.DATABASE_URL);
   const filas = await sql`
-    SELECT nombre, genero, da_a, revelado, revelado_en
-    FROM asignaciones
-    ORDER BY orden
+    SELECT a.nombre, a.genero, a.da_a, a.revelado, a.revelado_en,
+           p.dulces, p.regalos
+    FROM asignaciones a
+    LEFT JOIN preferencias p ON p.nombre = a.nombre
+    ORDER BY a.orden
   `;
 
   if (!filas.length) {
@@ -233,7 +262,11 @@ async function main() {
   writeFileSync(archivo, construirHtml(filas, generoDe), 'utf8');
 
   // El detalle va al archivo, no a la consola: asi no queda en el historial.
+  const pidieron = filas.filter(
+    (f) => (f.dulces && f.dulces.length) || (f.regalos && f.regalos.length)
+  ).length;
   console.log(`${filas.length} participantes · ${abiertos} ya abrieron · ${filas.length - abiertos} pendientes`);
+  console.log(`${pidieron} ya escribieron lo que quieren · ${filas.length - pidieron} sin escribir`);
   console.log(`\nLista completa: ${archivo}`);
 
   if (!process.argv.includes('--no-abrir')) {

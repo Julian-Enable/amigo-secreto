@@ -8,7 +8,8 @@
   "scripts": {
     "seed": "node scripts/seed.js",
     "reseed": "node scripts/seed.js --force",
-    "ver": "node scripts/ver.js"
+    "ver": "node scripts/ver.js",
+    "migrar": "node scripts/migrar.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2"

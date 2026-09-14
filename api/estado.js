@@ -10,14 +10,23 @@ export default async function handler(req, res) {
   }
 
   try {
+    // `gustos` dice si esa persona ya escribio lo que quiere, para poder
+    // recordarselo a quien falte. Sigue sin salir nada de las asignaciones.
     const filas = await sql`
-      SELECT nombre, revelado
-      FROM asignaciones
-      ORDER BY orden
+      SELECT a.nombre,
+             a.revelado,
+             (p.nombre IS NOT NULL) AS gustos
+      FROM asignaciones a
+      LEFT JOIN preferencias p ON p.nombre = a.nombre
+      ORDER BY a.orden
     `;
     res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({
-      personas: filas.map((f) => ({ nombre: f.nombre, revelado: f.revelado })),
+      personas: filas.map((f) => ({
+        nombre: f.nombre,
+        revelado: f.revelado,
+        gustos: f.gustos,
+      })),
     });
   } catch (e) {
     return res.status(500).json({ error: 'No se pudo cargar la lista' });

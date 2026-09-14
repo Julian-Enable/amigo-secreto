@@ -23,6 +23,7 @@
     --accent-deep: #96263d;
     --accent-wash: #fbeef1;
     --done: #4f7a5e;
+    --done-wash: #eef5f0;
     --radius: 13px;
     --shadow: 0 1px 2px rgba(23,24,26,0.04), 0 10px 30px -18px rgba(23,24,26,0.28);
     --display: "Instrument Serif", ui-serif, Georgia, "Times New Roman", serif;
@@ -50,7 +51,7 @@
   .app { width: 100%; max-width: 600px; }
 
   /* ---------- encabezado ---------- */
-  header { text-align: center; margin-bottom: 34px; }
+  header { text-align: center; margin-bottom: 30px; }
 
   .eyebrow {
     display: inline-flex;
@@ -122,11 +123,22 @@
   .search { position: relative; margin-bottom: 15px; display: none; }
   .search.on { display: block; }
 
-  .search input {
+  .search svg {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-faint);
+    pointer-events: none;
+  }
+
+  .search input { padding-left: 43px; }
+
+  input[type="search"], input[type="text"], select {
     width: 100%;
     font: inherit;
     font-size: 1rem;
-    padding: 13px 16px 13px 43px;
+    padding: 13px 16px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface);
@@ -135,18 +147,9 @@
     transition: border-color 0.2s, box-shadow 0.2s;
   }
 
-  .search input:focus {
+  input:focus, select:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-wash);
-  }
-
-  .search svg {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--ink-faint);
-    pointer-events: none;
   }
 
   /* ---------- lista ---------- */
@@ -202,7 +205,7 @@
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 18px;
-    padding: 40px 26px;
+    padding: 38px 26px;
     text-align: center;
     box-shadow: var(--shadow);
   }
@@ -242,6 +245,29 @@
   .btn-quiet { background: var(--surface); border-color: var(--line-strong); color: var(--ink); }
   .btn-quiet:hover { border-color: var(--ink-faint); }
 
+  /* enlace de acceso a "lo que quiero" */
+  .enlace-gustos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+    font: inherit;
+    font-size: 0.93rem;
+    font-weight: 500;
+    padding: 14px 18px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: border-color 0.18s, color 0.18s;
+  }
+
+  .enlace-gustos:hover { border-color: var(--accent); color: var(--accent); }
+  .enlace-gustos:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
   /* ---------- revelación ---------- */
   .ribbon { display: flex; justify-content: center; }
   .ribbon svg { color: var(--accent); }
@@ -259,7 +285,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin: 24px 0 10px;
+    margin: 22px 0 10px;
   }
 
   .receiver {
@@ -279,13 +305,89 @@
   }
 
   .note {
-    margin-top: 26px;
-    padding-top: 22px;
+    margin-top: 24px;
+    padding-top: 20px;
     border-top: 1px solid var(--line);
     font-size: 0.87rem;
     color: var(--ink-soft);
     text-wrap: balance;
   }
+
+  /* ---------- lo que pidió tu amigo secreto ---------- */
+  .deseos {
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+
+  .deseos .grupo + .grupo { margin-top: 18px; }
+
+  .deseos h3 {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 9px;
+  }
+
+  .deseos ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+  .deseos li {
+    background: var(--ground);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 0.94rem;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .deseos li .n {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .deseos .pendiente {
+    background: var(--accent-wash);
+    border-radius: 10px;
+    padding: 13px 15px;
+    font-size: 0.89rem;
+    color: var(--accent-deep);
+    text-wrap: balance;
+  }
+
+  /* ---------- formulario de gustos ---------- */
+  .campos { display: flex; flex-direction: column; gap: 22px; text-align: left; margin-top: 4px; }
+
+  .bloque h3 {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 4px;
+  }
+
+  .bloque .pista { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 11px; text-wrap: balance; }
+
+  .bloque .campo + .campo { margin-top: 8px; }
+
+  .exito {
+    background: var(--done-wash);
+    color: #2f5b3f;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 0.91rem;
+    margin-bottom: 16px;
+    display: none;
+    text-wrap: balance;
+  }
+  .exito.on { display: block; }
 
   /* ---------- avisos ---------- */
   .alert {
@@ -300,11 +402,7 @@
   }
   .alert.on { display: block; }
 
-  .loading {
-    text-align: center;
-    color: var(--ink-faint);
-    padding: 52px 0;
-  }
+  .loading { text-align: center; color: var(--ink-faint); padding: 52px 0; }
 
   .dot {
     display: inline-block;
@@ -322,12 +420,7 @@
     40% { opacity: 1; transform: scale(1); }
   }
 
-  footer {
-    margin-top: 38px;
-    text-align: center;
-    font-size: 0.79rem;
-    color: var(--ink-faint);
-  }
+  footer { margin-top: 38px; text-align: center; font-size: 0.79rem; color: var(--ink-faint); }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -362,6 +455,7 @@
     </div>
   </div>
 
+  <!-- 1. elegir quién eres -->
   <div class="view" id="viewList">
     <div class="search" id="search">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -369,8 +463,13 @@
     </div>
     <div class="names" id="names"></div>
     <p class="empty" id="noMatch" hidden>Ningún nombre coincide con esa búsqueda.</p>
+    <button class="enlace-gustos" id="irGustosLista" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      Escribir lo que yo quiero
+    </button>
   </div>
 
+  <!-- 2. confirmar -->
   <div class="view" id="viewConfirm">
     <div class="card">
       <p class="ask">Vas a ver tu amigo secreto. ¿Eres tú?</p>
@@ -383,6 +482,7 @@
     </div>
   </div>
 
+  <!-- 3. resultado -->
   <div class="view" id="viewResult">
     <div class="card">
       <div class="ribbon" id="ribbon" aria-hidden="true">
@@ -390,9 +490,51 @@
       </div>
       <p class="kicker">Le das el regalo a</p>
       <p class="receiver" id="receiver" aria-live="polite"></p>
+
+      <div class="deseos" id="deseos" hidden></div>
+
       <p class="note" id="resultNote"></p>
-      <div class="row" style="margin-top:22px;">
+      <div class="row" style="margin-top:20px;">
         <button class="btn btn-quiet" id="done">Listo</button>
+        <button class="btn btn-main" id="irGustosResultado">Escribir lo que yo quiero</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. mis gustos -->
+  <div class="view" id="viewGustos">
+    <div class="exito" id="exitoGustos" role="status"></div>
+    <div class="card" style="text-align:left;">
+      <p class="kicker" style="margin-top:0;">Lo que yo quiero</p>
+      <p class="ask" style="margin-bottom:14px;">
+        Esto lo verá <strong>solo</strong> la persona que te va a regalar. Puedes volver y cambiarlo cuando quieras.
+      </p>
+
+      <div class="bloque" style="margin-bottom:22px;">
+        <h3>Tu nombre</h3>
+        <select id="quienSoy" aria-label="Elige tu nombre"></select>
+      </div>
+
+      <div class="campos">
+        <div class="bloque">
+          <h3>Endulzada</h3>
+          <p class="pista">Dos dulces que te gusten. Sé específico: marca, sabor, lo que sea.</p>
+          <div class="campo"><input type="text" id="dulce1" maxlength="120" placeholder="Endulzada 1" autocomplete="off" aria-label="Endulzada 1"></div>
+          <div class="campo"><input type="text" id="dulce2" maxlength="120" placeholder="Endulzada 2" autocomplete="off" aria-label="Endulzada 2"></div>
+        </div>
+
+        <div class="bloque">
+          <h3>Regalo</h3>
+          <p class="pista">Tres opciones, para que quien te regale pueda escoger.</p>
+          <div class="campo"><input type="text" id="regalo1" maxlength="120" placeholder="Regalo 1" autocomplete="off" aria-label="Opción de regalo 1"></div>
+          <div class="campo"><input type="text" id="regalo2" maxlength="120" placeholder="Regalo 2" autocomplete="off" aria-label="Opción de regalo 2"></div>
+          <div class="campo"><input type="text" id="regalo3" maxlength="120" placeholder="Regalo 3" autocomplete="off" aria-label="Opción de regalo 3"></div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:26px; justify-content:flex-start;">
+        <button class="btn btn-quiet" id="volverDeGustos">Volver</button>
+        <button class="btn btn-main" id="guardarGustos">Guardar</button>
       </div>
     </div>
   </div>
@@ -405,15 +547,18 @@
 'use strict';
 
 const CLAVE_LOCAL = 'amigoSecreto.miResultado';
+const CLAVE_YO = 'amigoSecreto.miNombre';
 
 const views = {
   loading: document.getElementById('viewLoading'),
   list: document.getElementById('viewList'),
   confirm: document.getElementById('viewConfirm'),
   result: document.getElementById('viewResult'),
+  gustos: document.getElementById('viewGustos'),
 };
 
 const alerta = document.getElementById('alert');
+const exito = document.getElementById('exitoGustos');
 const contenedor = document.getElementById('names');
 const noMatch = document.getElementById('noMatch');
 const search = document.getElementById('search');
@@ -421,9 +566,15 @@ const filter = document.getElementById('filter');
 const progress = document.getElementById('progress');
 const bar = document.getElementById('bar');
 const count = document.getElementById('count');
+const quienSoy = document.getElementById('quienSoy');
+const cajaDeseos = document.getElementById('deseos');
+
+const camposDulces = ['dulce1', 'dulce2'].map((id) => document.getElementById(id));
+const camposRegalos = ['regalo1', 'regalo2', 'regalo3'].map((id) => document.getElementById(id));
 
 let personas = [];
 let elegido = null;
+let vistaPrevia = 'list';
 
 function show(nombre) {
   Object.values(views).forEach((v) => v.classList.remove('on'));
@@ -437,14 +588,14 @@ function error(mensaje) {
 
 function limpiarError() {
   alerta.classList.remove('on');
+  exito.classList.remove('on');
 }
 
 /* ---------- memoria del propio dispositivo ---------- */
-// La marca global vive en la base de datos; esto es solo una copia local para
-// que nadie pierda su asignacion por cerrar la pagina sin querer.
 function guardarLocal(nombre, daA) {
   try {
     localStorage.setItem(CLAVE_LOCAL, JSON.stringify({ nombre, daA }));
+    localStorage.setItem(CLAVE_YO, nombre);
   } catch (e) { /* modo privado */ }
 }
 
@@ -453,6 +604,14 @@ function leerLocal() {
     return JSON.parse(localStorage.getItem(CLAVE_LOCAL) || 'null');
   } catch (e) {
     return null;
+  }
+}
+
+function miNombre() {
+  try {
+    return localStorage.getItem(CLAVE_YO) || '';
+  } catch (e) {
+    return '';
   }
 }
 
@@ -500,6 +659,74 @@ function pintarLista() {
   noMatch.hidden = visibles.length > 0;
 }
 
+function llenarSelector() {
+  const yo = miNombre();
+  quienSoy.innerHTML = '';
+  const vacia = document.createElement('option');
+  vacia.value = '';
+  vacia.textContent = 'Elige tu nombre…';
+  quienSoy.appendChild(vacia);
+  personas.forEach((p) => {
+    const op = document.createElement('option');
+    op.value = p.nombre;
+    op.textContent = p.nombre;
+    if (p.nombre === yo) op.selected = true;
+    quienSoy.appendChild(op);
+  });
+}
+
+/* ---------- deseos de tu amigo secreto ---------- */
+function pintarDeseos(datos) {
+  cajaDeseos.innerHTML = '';
+  cajaDeseos.hidden = false;
+
+  const tieneAlgo = (datos.dulces || []).length || (datos.regalos || []).length;
+  if (!tieneAlgo) {
+    const aviso = document.createElement('p');
+    aviso.className = 'pendiente';
+    aviso.textContent = 'Todavía no ha escrito lo que quiere. Vuelve más tarde para verlo.';
+    cajaDeseos.appendChild(aviso);
+    return;
+  }
+
+  const grupo = (titulo, items) => {
+    if (!items || !items.length) return;
+    const div = document.createElement('div');
+    div.className = 'grupo';
+    const h = document.createElement('h3');
+    h.textContent = titulo;
+    div.appendChild(h);
+    const ul = document.createElement('ul');
+    items.forEach((texto, i) => {
+      const li = document.createElement('li');
+      const n = document.createElement('span');
+      n.className = 'n';
+      n.textContent = (i + 1) + '.';
+      const t = document.createElement('span');
+      t.textContent = texto;
+      li.appendChild(n);
+      li.appendChild(t);
+      ul.appendChild(li);
+    });
+    div.appendChild(ul);
+    cajaDeseos.appendChild(div);
+  };
+
+  grupo('Su endulzada', datos.dulces);
+  grupo('Sus opciones de regalo', datos.regalos);
+}
+
+async function cargarDeseosDe(nombre) {
+  cajaDeseos.hidden = true;
+  try {
+    const res = await fetch('/api/preferencias?nombre=' + encodeURIComponent(nombre), { cache: 'no-store' });
+    if (!res.ok) return;
+    pintarDeseos(await res.json());
+  } catch (e) {
+    /* si falla, simplemente no mostramos la caja */
+  }
+}
+
 /* ---------- flujo ---------- */
 function confirmar(nombre) {
   limpiarError();
@@ -519,6 +746,7 @@ function verResultado(daA, yaVisto) {
   void ribbon.offsetWidth;
   ribbon.classList.add('play');
   show('result');
+  cargarDeseosDe(daA);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -530,8 +758,89 @@ async function cargarEstado() {
   actualizarProgreso();
   search.classList.toggle('on', personas.length > 12);
   pintarLista();
+  llenarSelector();
 }
 
+/* ---------- mis gustos ---------- */
+async function abrirGustos(desde) {
+  limpiarError();
+  vistaPrevia = desde;
+  llenarSelector();
+  show('gustos');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (quienSoy.value) await precargarGustos(quienSoy.value);
+}
+
+async function precargarGustos(nombre) {
+  camposDulces.concat(camposRegalos).forEach((c) => { c.value = ''; });
+  if (!nombre) return;
+  try {
+    const res = await fetch('/api/preferencias?nombre=' + encodeURIComponent(nombre), { cache: 'no-store' });
+    if (!res.ok) return;
+    const datos = await res.json();
+    (datos.dulces || []).forEach((v, i) => { if (camposDulces[i]) camposDulces[i].value = v; });
+    (datos.regalos || []).forEach((v, i) => { if (camposRegalos[i]) camposRegalos[i].value = v; });
+  } catch (e) {
+    /* sin precarga */
+  }
+}
+
+document.getElementById('irGustosLista').addEventListener('click', () => abrirGustos('list'));
+document.getElementById('irGustosResultado').addEventListener('click', () => abrirGustos('result'));
+document.getElementById('volverDeGustos').addEventListener('click', () => {
+  limpiarError();
+  show(vistaPrevia);
+});
+
+quienSoy.addEventListener('change', () => precargarGustos(quienSoy.value));
+
+document.getElementById('guardarGustos').addEventListener('click', async function () {
+  const nombre = quienSoy.value;
+  limpiarError();
+
+  if (!nombre) {
+    error('Primero elige tu nombre en la lista de arriba.');
+    return;
+  }
+
+  const dulces = camposDulces.map((c) => c.value.trim()).filter(Boolean);
+  const regalos = camposRegalos.map((c) => c.value.trim()).filter(Boolean);
+
+  if (!dulces.length && !regalos.length) {
+    error('Escribe al menos una endulzada o una opción de regalo.');
+    return;
+  }
+
+  const btn = this;
+  btn.disabled = true;
+  btn.textContent = 'Guardando…';
+
+  try {
+    const res = await fetch('/api/preferencias', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, dulces, regalos }),
+    });
+
+    if (res.ok) {
+      try { localStorage.setItem(CLAVE_YO, nombre); } catch (e) { /* modo privado */ }
+      exito.textContent = 'Listo, ya quedó guardado. Quien te regale verá esto.';
+      exito.classList.add('on');
+      const persona = personas.find((p) => p.nombre === nombre);
+      if (persona) persona.gustos = true;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      error('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.');
+    }
+  } catch (e) {
+    error('No hay conexión con el servidor. Inténtalo de nuevo en un momento.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Guardar';
+  }
+});
+
+/* ---------- botones del flujo principal ---------- */
 document.getElementById('back').addEventListener('click', () => {
   elegido = null;
   show('list');
